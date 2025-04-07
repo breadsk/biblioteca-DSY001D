@@ -24,4 +24,35 @@ public class LibroRepository {
         listaLibros.add(new Libro(4, "978-0132350884", "Clean Code", "Prentice Hall", 2008, "Robert C. Martin"));
     }
 
+    public List<Libro> getLibros(){
+        return listaLibros;
+    }
+
+    public Libro getLibroPorId(int id){
+        for(Libro libro : listaLibros){ // 
+            if(libro.getId() == id){
+                return libro;
+            }
+        }
+        return null;
+    }
+
+    public Libro getLibroPorIsbn(String isbn){
+        for(Libro libro : listaLibros){
+            if(libro.getIsbn() == isbn){
+                return libro;
+            }
+        }
+        return null;
+    }
+
+    public Libro getLibroPorAutor(String autor){
+        for(Libro libro : listaLibros){
+            if(libro.getAutor() == autor){
+                return libro;
+            }
+        }
+        return null;
+    }
+
 }
