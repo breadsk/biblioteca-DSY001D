@@ -65,12 +65,16 @@ public class LibroRepository {
         int id = 0;
         int idPosicion = 0;
 
-        for(int i=0;i < listaLibros.size();i++){
+        for(int i = 0;i < listaLibros.size();i++){
             if(listaLibros.get(i).getId() == libro.getId()){
                 id = libro.getId();
                 idPosicion = i;
             }
-        }
+        }        
+        // 0 listaLibros.add(new Libro(1, "978-0134685991", "Effective Java", "Addison-Wesley", 2018, "Joshua Bloch"));
+        // 1 listaLibros.add(new Libro(2, "978-1617294945", "Spring in Action", "Manning", 2020, "Craig Walls"));
+        // 2 listaLibros.add(new Libro(3, "978-1491950357", "Designing Data-Intensive Applications", "O'Reilly Media", 2017, "Martin Kleppmann"));
+        // 3listaLibros.add(new Libro(4, "978-0132350884", "Clean Code", "Prentice Hall", 2008, "Robert C. Martin"));
 
         Libro libro1 = new Libro();
         libro1.setId(id);
@@ -83,7 +87,32 @@ public class LibroRepository {
         listaLibros.set(idPosicion,libro1);
 
         return libro1;
-
     }
 
+    public void eliminarLibro(int id){
+        //Alternativa 1
+        Libro libro = getLibroPorId(id);
+        if(libro != null) listaLibros.remove(libro);
+
+        //Alternativa 2
+        int idPosicion = 0;
+        for(int i = 0;i<listaLibros.size();i++){
+            if(listaLibros.get(i).getId() == id){
+                idPosicion = i;
+                break;
+            }
+        }
+        if(idPosicion > 0) listaLibros.remove(idPosicion);
+
+
+        //Alternativa 3
+        listaLibros.removeIf(
+            (x) -> 
+                x.getId() == id
+            );
+    }
+
+    public int totalLibros(){
+        return listaLibros.size();
+    }
 }
