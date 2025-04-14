@@ -14,14 +14,14 @@ import java.util.Map;
 @Service
 public class LibroService {
 
-    //@Autowired
+    @Autowired
     //Esto no posee autowired
     //Tiene dependencia de la clase que necesita
     private LibroRepository libroRepository;
 
-    public LibroService(LibroRepository libroRepository){
-        this.libroRepository = libroRepository;
-    }
+    //public LibroService(LibroRepository libroRepository){
+    //    this.libroRepository = libroRepository;
+    //}
 
     public List<Libro> getLibros(){
         return libroRepository.getLibros();
@@ -63,14 +63,48 @@ public class LibroService {
         //Usamos un mapa para almacenar los años y la cantidad de libros
         Map<Integer,Long> librosPorAnio = new HashMap<>();
 
-        //Agrupár Libro por año
+        //Agrupar Libro por año
         for(Libro libro : libros){
             int anio = libro.getFechaPublicacion();
-
+            //Clave buscada entre el mapa, el valor se devuelve 
+            //si la clave no existe en el mapas
+            long libroPorAnio = librosPorAnio.getOrDefault(anio,0L)+1;
+            librosPorAnio.put(anio,libroPorAnio);
             
         }
-        return null;
+        return librosPorAnio;
 
     }
 
+    public Libro getLibroMasAntiguo(){
+        List<Libro> libros = libroRepository.getLibros();
+
+        if(libros.isEmpty()) return null;
+        
+        Libro libroMasAntiguo = libros.get(0);
+
+        for(Libro libro : libros){
+            if(libro.getFechaPublicacion() < libroMasAntiguo.getFechaPublicacion()){
+                libroMasAntiguo = libro;
+            }
+        }
+
+        return libroMasAntiguo;
+    }
+
+    public Libro getLibroMasNuevo(){
+        List<Libro> libros = libroRepository.getLibros();
+
+        if(libros.isEmpty()) return null;
+        
+        Libro libroMasNuevo = libros.get(0);
+
+        for(Libro libro : libros){
+            if(libro.getFechaPublicacion() > libroMasNuevo.getFechaPublicacion()){
+                libroMasNuevo = libro;
+            }
+        }
+
+        return libroMasNuevo;
+    }
 }
