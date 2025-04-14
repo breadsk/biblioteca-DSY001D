@@ -107,4 +107,13 @@ public class LibroService {
 
         return libroMasNuevo;
     }
+
+    public List<Libro> listarLibrosOrdenadosPorAnio(){
+
+        return libroRepository.getLibros()
+            .stream()//Convierte la lista de libros en un stream, que permite operaciones funcionales como filter,map,sorted,etc
+            .sorted((libro1,libro2) -> Integer.compare(libro1.getFechaPublicacion(),libro2.getFechaPublicacion()))// Ordena los elementos del stream
+            .toList();//Convierte el stream ordenandose de nuevo a una lista
+    }
+
 }
