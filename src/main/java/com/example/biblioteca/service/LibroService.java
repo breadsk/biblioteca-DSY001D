@@ -43,7 +43,7 @@ public class LibroService {
         return libroRepository.guardarLibro(libro);
     }
 
-    public Libro actuaLibro(Libro libro){
+    public Libro actualizarLibro(Libro libro){
         return libroRepository.actualizarLibro(libro);
     }
 

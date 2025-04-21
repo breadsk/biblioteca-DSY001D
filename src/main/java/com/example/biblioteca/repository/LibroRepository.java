@@ -39,7 +39,7 @@ public class LibroRepository {
 
     public Libro getLibroPorIsbn(String isbn){
         for(Libro libro : listaLibros){
-            if(libro.getIsbn() == isbn){
+            if(libro.getIsbn().equals(isbn)){
                 return libro;
             }
         }
